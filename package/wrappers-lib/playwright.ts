@@ -25,7 +25,7 @@ class UiElement {
         this.pageIndex = options?.pageIndex?.valueOf() !== undefined ? options?.pageIndex?.valueOf() : 0;
         this.objectDescriptor = options?.description?.valueOf() !== undefined ? options?.description?.valueOf() : 'Object - ';
         this.hasFrame = options?.frameLocator?.valueOf() === undefined ? false : true;
-        this.stringFramelocator = options?.frameLocator?.valueOf() !== undefined ? options?.frameLocator : undefined;
+        this.stringFramelocator = options?.frameLocator === undefined ? '' : options?.frameLocator;
 
     }
 
@@ -46,7 +46,7 @@ class UiElement {
 
 
         if ((await getUrl(this.pageIndex)).includes('stage-um')) {
-            if (this.stringFramelocator === undefined) {
+            if (this.stringFramelocator === '') {
                 await this.setHasFrame(true);
                 await this.setFrameLocator('iframe');
             } else if (this.stringFramelocator != '') {
@@ -58,7 +58,7 @@ class UiElement {
             await this.setHasFrame(false);
         }
 
-        this.frameLocator = await this.getHasFrame() ? this.page.frameLocator(this.stringFramelocator) : undefined;
+        this.frameLocator = await this.getHasFrame() ? this.page.frameLocator(this.stringFramelocator) : this.frameLocator;
 
     }
 
@@ -456,12 +456,13 @@ class UiElement {
     }
 
     async getTextAllMatchingObjects() {
-        let arr = [];
+        let arr: string[] = []; // Initialize arr as an empty array of type string[]
         let count = await (await this.getElement()).count();
         for (let indx = 0; indx < count; indx++) {
             await staticWait(100);
-            let iText = (await (await this.getElement()).nth(indx).innerText()).toString()
-            arr.push(iText.trim())
+
+            let iText = (await (await this.getElement()).nth(indx).innerText()).toString();
+            arr.push(iText.trim());
         }
         await this.clearFullCssAndXPath();
         return arr;
@@ -570,7 +571,7 @@ class UiElement {
     }
 
     async check(options?: { objIndex?: number, force?: boolean }) {
-        let _objIndex = options?.objIndex?.valueOf() !== undefined ? -1 : options?.objIndex;
+        let _objIndex = options?.objIndex === undefined ? 0 : options?.objIndex;
         let _force = options?.force?.valueOf() !== undefined ? options?.force : false;
 
         await this.waitTillElementToBeReady().then(async () => {
@@ -587,7 +588,7 @@ class UiElement {
     }
 
     async uncheck(options?: { objIndex?: number, force?: boolean }) {
-        let _objIndex = options?.objIndex?.valueOf() !== undefined ? -1 : options?.objIndex;
+        let _objIndex = options?.objIndex === undefined ? 0 : options?.objIndex;
         let _force = options?.force?.valueOf() !== undefined ? options?.force : false;
 
         const obj = _objIndex > -1 ? (await this.getElement()).nth(_objIndex) : (await this.getElement()).first();
@@ -754,7 +755,7 @@ class UiElement {
     async getAllRowsColumnData(column: number, options?: { locator?: string }) {
         let _locator = options?.locator?.valueOf() === undefined ? 'tr' : options?.locator;
 
-        let arr = [];
+        let arr: string[] = []; // Specify the type of arr as string[]
         let length = await (await this.getElement()).locator(_locator).count();
         for (let index = 0; index < length; index++) {
             let text = await (await this.getElement()).locator(_locator).nth(index).locator('td').nth(column).innerText();
@@ -1160,11 +1161,11 @@ class UiElement {
 export const playwright = {
     // @ts-ignore
     page: undefined as Page,
-    apiContext: undefined as APIRequestContext,
-    popup: undefined as Page,
-    newPage: undefined as Page,
-    context: undefined as BrowserContext,
-    browser: undefined as Browser
+    apiContext: undefined as unknown as APIRequestContext,
+    popup: undefined as unknown as Page,
+    newPage: undefined as unknown as Page,
+    context: undefined as unknown as BrowserContext,
+    browser: undefined as unknown as Browser
 }
 
 export const invokeBrowser = async (browserType: string, options?: { headless?: boolean, channel?: string }) => {

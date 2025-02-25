@@ -5,7 +5,7 @@ export default class DataBase {
     protected dbType: string;
     public queryResult: any;
     protected dbConfig: any;
-    constructor(dbType?: "oracle" | "mysql" | "sql", dbConfig?: any) {
+    constructor(dbType: "oracle" | "mysql" | "sql", dbConfig?: any) {
         this.dbType = dbType;
         this.dbConfig = dbConfig;
     }
@@ -65,9 +65,9 @@ export default class DataBase {
         let rows = this.queryResult.rows;
         let metaData = this.queryResult.metaData;
         let len = metaData.length;
-        let res = [];
+        let res: any[] = []; // Add type annotation for the 'res' array
         for (const row of rows) {
-            let item: any = '';
+            let item: string = '';
             for (let i = 0; i < len; i++) {
                 if (i === 0) {
                     item = `${item} "${metaData[i].name}": "${row[i]}" `;

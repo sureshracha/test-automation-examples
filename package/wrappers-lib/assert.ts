@@ -1,7 +1,6 @@
 import { expect } from "@playwright/test";
 import testContext from "./testContext";
 import logger from './logger';
-import runtimeDataUtils from "../utils/common/runtime-data.utils";
 
 class CustomAssert {
 
@@ -14,7 +13,6 @@ class CustomAssert {
             await logger.info(`softAssert :: ${message} {Actual : [${actual}] - Expected [${expected}]}`);
         } else {
             await logger.error(`softAssert :: ${message} {Actual : [${actual}] - Expected [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `softAssert :: ${message} {String : [${actual}] - Substring [${expected}]}`);
             testContext.assertsJson.soft.push({ softAssert: "Failed", caseSensitive: `${caseSensitive}`, Actual: `${actual}`, Expected: `${expected}`, message: `${message}` });
         }
     }
@@ -28,7 +26,6 @@ class CustomAssert {
             await logger.info(`softContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
         } else {
             await logger.error(`softContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `softContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
             testContext.assertsJson.soft.push({ softContains: "Failed", caseSensitive: `${caseSensitive}`, Actual: `${actual}`, Expected: `${expected}`, message: `${message}` });
         }
     }
@@ -40,7 +37,6 @@ class CustomAssert {
             await logger.info(`softNotContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
         } else {
             await logger.error(`softNotContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `softNotContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
             testContext.assertsJson.soft.push({ softNotContains: "Failed", caseSensitive: `${caseSensitive}`, Actual: `${actual}`, Expected: `${expected}`, message: `${message}` });
         }
     }
@@ -52,7 +48,7 @@ class CustomAssert {
             await logger.info(`softContainsForStringArray :: ${message} {Array : [${actual}] - Element [${expected}]}`);
         } else {
             await logger.error(`softContainsForStringArray :: ${message} {Array : [${actual}] - Element [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `softContainsForStringArray :: ${message} {String : [${actual}] - Substring [${expected}]}`);
+            
             testContext.assertsJson.soft.push({ softContainsForStringArray: "Failed", caseSensitive: `${caseSensitive}`, Actual: `${actual}`, Expected: `${expected}`, message: `${message}` })
         }
     }
@@ -63,7 +59,6 @@ class CustomAssert {
             await logger.info(`softNotContainsForStringArray :: ${message} {Array : [${actual}] - Element [${expected}]}`);
         } else {
             await logger.error(`softNotContainsForStringArray :: ${message} {Array : [${actual}] - Element [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `softContainsForStringArray :: ${message} {String : [${actual}] - Substring [${expected}]}`);
             testContext.assertsJson.soft.push({ softContainsForStringArray: "Failed", caseSensitive: `${caseSensitive}`, Actual: `${actual}`, Expected: `${expected}`, message: `${message}` })
         }
     }
@@ -76,7 +71,6 @@ class CustomAssert {
             await logger.info(`softAssertCompareArrays :: ${message} {Actual : [${actual}] - Expected  [${expected}]}`);
         } else {
             await logger.error(`softAssertCompareArrays :: ${message} {Actual : [${actual}] - Expected  [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `softAssertCompareArrays :: ${message} {String : [${actual}] - Substring [${expected}]}`);
             testContext.assertsJson.soft.push({ softAssertCompareArrays: "Failed", caseSensitive: `${caseSensitive}`, Actual: `${actual}`, Expected: `${expected}`, message: `${message}`, differnce: `[${diffVals}]` });
         }
     }
@@ -92,7 +86,6 @@ class CustomAssert {
             await logger.info(`softContainsOneOfThem :: ${message} {Actual : [${actual}] - Expected One of Them [${expected}]}`);
         } else {
             await logger.error(`softContainsOneOfThem :: ${message} {Actual : [${actual}] - Expected One of Them [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `softContainsOneOfThem :: ${message} {String : [${actual}] - Substring [${expected}]}`);
             testContext.assertsJson.soft.push({ softContainsOneOfThem: "Failed", caseSensitive: `${caseSensitive}`, Actual: `${actual}`, ExpectedOneofThem: `${expected}`, message: `${message}` });
         }
     }
@@ -108,7 +101,6 @@ class CustomAssert {
         }
         if (flag) {
             await logger.error(`softNotContainsOneOfThem :: ${message} {Actual : [${actual}] - Expected One of Them [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `softNotContainsOneOfThem :: ${message} {String : [${actual}] - Substring [${expected}]}`);
             testContext.assertsJson.soft.push({ softContainsOneOfThem: "Failed", caseSensitive: `${caseSensitive}`, Actual: `${actual}`, ExpectedOneofThem: `${expected}`, message: `${message}` });
         } else {
             await logger.info(`softNotContainsOneOfThem :: ${message} {Actual : [${actual}] - Expected One of Them [${expected}]}`);
@@ -121,7 +113,7 @@ class CustomAssert {
             await logger.info(`hardAssert :: ${message} {Actual : [${actual}] - Expected [${expected}]}`);
         } else {
             await logger.error(`hardAssert :: ${message} {Actual : [${actual}] - Expected [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `hardAssert :: ${message} {String : [${actual}] - Substring [${expected}]}`);
+           
         }
         expect(actual, `hardAssert :: ${message} \n{Actual : [${actual}] - Expected [${expected}]}`).toEqual(expected);
     }
@@ -131,7 +123,6 @@ class CustomAssert {
             await logger.info(`hardContains :: ${message} {Actual : [${actual}] - Expected [${expected}]}`);
         } else {
             await logger.error(`hardContains :: ${message} {Actual : [${actual}] - Expected [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `hardContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
         }
         expect(actual, `hardContains :: ${message} \n{Actual : [${actual}] - Expected [${expected}]}`).toContain(expected);
     }
@@ -141,7 +132,7 @@ class CustomAssert {
             await logger.info(`hardNotContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
         } else {
             await logger.error(`hardNotContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
-            await runtimeDataUtils.addOrUpdateRunTimeResultsData('ErrorDescription', `hardNotContains :: ${message} {String : [${actual}] - Substring [${expected}]}`);
+           
         }
         expect(actual, `hardNotContains :: ${message} \n{Actual : [${actual}] - Expected [${expected}]}`).not.toContain(expected);
     }

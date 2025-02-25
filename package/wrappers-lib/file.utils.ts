@@ -1,4 +1,4 @@
-import * as projectConfig from '../config/project.config.json'
+
 
 export async function checkFolderAndCreate(folder: string) {
     let fs = require("fs");
@@ -29,9 +29,7 @@ export async function isfileExist(filepath: string) {
     return fs.existsSync(filepath);
 }
 
-export async function getTxnFilePath(filename: string) {
-    return `${process.cwd()}${projectConfig.RUN_TIME_DATA_PATH}/${filename}.json`;
-}
+
 
 export async function getFileNamesFromDir(dirPath: string) {
     let fs = require("fs");
@@ -44,7 +42,7 @@ export async function getFileNamesFromDir(dirPath: string) {
 
 export async function getFullFileNames(dirPath: string, fileNameSubString: string) {
     let fs = require("fs");
-    let array: string[];
+    let array: string[] = []; // Initialize array as an empty array
     await fs.readdirSync(dirPath).forEach((fileName?: string) => {
         if (fileName?.includes(fileNameSubString)) {
             array?.push(fileName);
