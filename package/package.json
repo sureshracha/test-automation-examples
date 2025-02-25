@@ -1,6 +1,6 @@
 {
   "name": "test-wrappers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "playwright and general  wrappers library",
   "main": "index.js",
   "scripts": {
@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/sureshracha/test-wrappers#readme",
   "dependencies": {
-    "test-wrappers": "^1.0.1",
+    "test-wrappers": "^1.0.2",
     "@playwright/test": "^1.43.0",
     "@types/cucumber": "^6.0.1",
     "@types/node": "^20.12.7",
