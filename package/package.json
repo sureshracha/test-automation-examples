@@ -1,11 +1,23 @@
 {
-  "name": "test-wrappers",
+  "name": "@sracha/test-wrappers",
   "version": "1.0.0",
-  "description": "Playwright wrappers and general libraries",
+  "description": "playwright and general  wrappers library",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sureshracha/test-wrappers.git"
+  },
+  "keywords": [
+    "playwright",
+    "wrappers"
+  ],
   "author": "sracha",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sureshracha/test-wrappers/issues"
+  },
+  "homepage": "https://github.com/sureshracha/test-wrappers#readme"
 }
