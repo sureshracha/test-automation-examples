@@ -1,6 +1,6 @@
 {
   "name": "test-wrappers",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "playwright and general  wrappers library",
   "main": "index.js",
   "scripts": {
@@ -20,8 +20,7 @@
     "url": "https://github.com/sureshracha/test-wrappers/issues"
   },
   "homepage": "https://github.com/sureshracha/test-wrappers#readme",
-  "dependencies": {
-    "test-wrappers": "^1.0.2",
+  "dependencies": { 
     "@playwright/test": "^1.43.0",
     "@types/node": "^20.12.7",
     "alasql": "^4.3.2",
