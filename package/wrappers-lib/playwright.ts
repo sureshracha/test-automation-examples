@@ -2,7 +2,7 @@ import { Page, APIRequestContext, BrowserContext, Browser, chromium, firefox, we
 import logger, { options } from "./logger";
 import { cssPath, xPath } from "playwright-dompath";
 
-class UiElement {
+export class UiElement {
 
     protected locator: string;
     protected page: Page;
