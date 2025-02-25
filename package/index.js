@@ -1,5 +1,5 @@
-function wds(string) {
-    return string === 'wds';
+function wordTest(string) {
+    return string === 'test';
 }
 
-export default wds;
+export default wordTest;
