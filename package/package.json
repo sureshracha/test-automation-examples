@@ -1,5 +1,5 @@
 {
-  "name": "@sracha/test-wrappers",
+  "name": "@testing/test-wrappers",
   "version": "1.0.0",
   "description": "playwright and general  wrappers library",
   "main": "index.js",
