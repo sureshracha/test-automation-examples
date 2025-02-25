@@ -1,6 +1,6 @@
 {
   "name": "test-wrappers",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "playwright and general  wrappers library",
   "main": "index.js",
   "scripts": {
