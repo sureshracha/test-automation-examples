@@ -2,22 +2,22 @@
 const projectConfig = require('../src/um-e2e-tests/config/project.config.json');
 const fs = require('fs');
 const xlsx = require("xlsx");
-let parms = process.argv.splice(' ');
+let parms = process.argv.splice(/);
 let env = parms.length > 2 ? parms[2].trim().toLowerCase() : "test";
 const finalResultsFile = `${process.cwd()}/test-results-e2e/finalResults/runtimeFinaleResults_${env}.json`;
 
-function getFileNamesFromDir(dirPath) {
-	let array = [];
+function getFileNamesFromDir(dirPath: string) {
+	let array: string[] = [];
 
 	if (fs.readdirSync(dirPath).length !== 0) {
-		fs.readdirSync(dirPath).forEach((fileName) => {
+		fs.readdirSync(dirPath).forEach((fileName: string) => {
 			array.push(fileName);
 		})
 	}
 	return array;
 }
 
-function createFolder(folder) {
+function createFolder(folder: string) {
 	let fs = require("fs");
 	if (!fs.existsSync(folder)) {
 		fs.mkdirSync(folder, { recursive: true });
