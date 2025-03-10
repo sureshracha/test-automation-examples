@@ -1,11 +1,11 @@
 
-import { BeforeAll, AfterAll, Before, After, Status, setParallelCanAssign, parallelCanAssignHelpers, setDefaultTimeout } from "@cucumber/cucumber"; // , setParallelCanAssign, parallelCanAssignHelpers
+import { Before, After, Status, parallelCanAssignHelpers } from "@cucumber/cucumber"; // , setParallelCanAssign, parallelCanAssignHelpers
 
 import { request } from "@playwright/test";
 import { getEnv } from '../helpers/env/env';
 import { createLogger } from "winston";
 import { playwrightWrapper, invokeBrowser, closeplaywrightWrapper } from '@qe-solutions/playwright-test-wrappers';
-import { customLogger, fileUtils, tcontext, customAssert, runtimeDataUtils } from '@qe-solutions/test-automation-library';
+import { customLogger, fileUtils, tcontext, runtimeDataUtils } from '@qe-solutions/test-automation-library';
 
 import TestDataUtils from '../utils/testData.utils';
 const projectConfig = require('../config/project.config.json');
@@ -39,7 +39,7 @@ Before(async function ({ pickle }) {
             httpCredentials:
             {
                 username: appUserId,
-                password: appUserId
+                password: appPwd
             }
         }
     );
@@ -64,7 +64,7 @@ Before(async function ({ pickle }) {
     await testDataUtils.renameKey(tcontext.testContext.runtimeStorageFile, 'MyTasks', 'testData');
     let loggerFileName = await runtimeDataUtils.getRunTimeDataFileName(pickle) + "-" + pickle.id;
     tcontext.testContext.logger = createLogger(await customLogger.options({ fileName: loggerFileName, logfileFolder: `${process.cwd()}/test-results-e2e/logs` }));
-    tcontext.testContext.runtimeLoggerFile = `${process.cwd()}/test-results-e2e/logs/${loggerFileName}.log`;
+    tcontext.testContext.runtimeLoggerFile = `${process.cwd()}/test-results/logs/${loggerFileName}.log`;
     playwrightWrapper.apiContext = await request.newContext({
         baseURL: process.env.APIURL,
     });
@@ -74,18 +74,13 @@ Before(async function ({ pickle }) {
     await runtimeDataUtils.addOrUpdateRunTimeResultsData('ScenarioNo', scn);
     customLogger.info(' Worker id : ' + process.env.CUCUMBER_WORKER_ID);
     customLogger.info(' User id picked : ' + appUserId);
-
-    let runtimeData = runtimeDataUtils.getRunTimeResultsData('nextScenarioToExecute');
-    if (runtimeData !== undefined || runtimeData !== null) {
-        await runtimeDataUtils.addOrUpdateRunTimeResultsData('nextScenarioToExecute', true);
-    }
 });
 
 After(async function ({ pickle, result }) {
-    // const path = `./test-results-e2e/trace/${pickle.id}.zip`;
+
     await afterSceanrio(pickle, result, this);
     await closeplaywrightWrapper();
-    // awaitplaywrightWrapper.context.tracing.stop({ path: path });
+
     await playwrightWrapper.context.close();
     if (playwrightWrapper.apiContext) await playwrightWrapper.apiContext.dispose();
     if (playwrightWrapper.browser) await playwrightWrapper.browser.close();
@@ -96,7 +91,6 @@ After(async function ({ pickle, result }) {
 
 
 async function afterSceanrio(pickle: any, result: any, worldObj: any) {
-    // if (!process.env.TAG.includes('auths') && !process.env.TAG.includes('assignedusers')) {
     let filedata = await fileUtils.readData(tcontext.testContext.runtimeLoggerFile);
     await attachlog(
         filedata + result.duration, worldObj
@@ -104,7 +98,7 @@ async function afterSceanrio(pickle: any, result: any, worldObj: any) {
 
     let runtimeData = await fileUtils.readData(tcontext.testContext.runtimeStorageFile);
     await attachlog(runtimeData, worldObj);
-    await fileUtils.checkFolderAndCreate(`${process.cwd()}/test-results-e2e/screenshots`);
+    await fileUtils.checkFolderAndCreate(`${process.cwd()}/test-results/screenshots`);
 
     if (result?.status === Status.FAILED) {
         await attachImage(result, pickle, worldObj);
@@ -113,7 +107,6 @@ async function afterSceanrio(pickle: any, result: any, worldObj: any) {
 
     if (tcontext.testContext.assertsJson) {
         if (tcontext.testContext.assertsJson.soft.length > 0) {
-            //await runtimeDataUtils.addOrUpdateRunTimeResultsData('Results', `${JSON.stringify(tcontext.testContext.assertsJson.soft, null, 2)}`);
             await attachlog(JSON.stringify(tcontext.testContext.assertsJson, null, 2), worldObj);
             if (result?.status !== Status.FAILED) {
                 await attachImage(result, pickle, worldObj);
@@ -130,15 +123,14 @@ async function afterSceanrio(pickle: any, result: any, worldObj: any) {
     async function attachImage(result: any, pickle: any, worldObj: any) {
         if (result?.status === Status.FAILED) {
             await runtimeDataUtils.addOrUpdateRunTimeResultsData('Results', 'FAIL');
-            // let flag = process.env.TAG.includes('auths') || process.env.TAG.includes('facility-validation') ? true : projectConfig.ON_FAILURE_SCREENSHOT;
-            // if (flag) {
+
             let img: Buffer;
-            img = await playwrightWrapper.page.screenshot({ path: `${process.cwd()}/test-results-e2e/screenshots/${await runtimeDataUtils.getRunTimeScnearioNo(pickle) + "-" + pickle.id}.png`, type: "png", fullPage: true });
+            img = await playwrightWrapper.page.screenshot({ path: `${process.cwd()}/test-results/screenshots/${await runtimeDataUtils.getRunTimeScnearioNo(pickle) + "-" + pickle.id}.png`, type: "png", fullPage: true });
 
             worldObj.attach(
                 img, "image/png"
             )
-            // }
+
         }
     }
 }
