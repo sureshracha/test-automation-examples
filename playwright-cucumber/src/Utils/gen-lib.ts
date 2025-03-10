@@ -1,7 +1,11 @@
 const xlsx = require("xlsx");
 const fs = require('fs');
 
-Date.prototype.mmddyyyy = function () {
+interface Date {
+    mmddyyyy(): string;
+}
+
+Date.prototype.mmddyyyy = function (): string {
     const yyyy = this.getFullYear().toString();
     const mm = (this.getMonth() + 1).toString(); // getMonth() is zero-based         
     const dd = (this.getDate()).toString();
@@ -32,7 +36,7 @@ function readExcelSheetsAndWriteToJsons(excelFilePath, jsonFilePath) {
     })
 }
 
-function writeToJsonFile(workBook, pathToWrite) {
+function writeToJsonFile(workBook: any, pathToWrite: any) {
 
     const sheetNames = workBook.SheetNames;
     for (const sheetName of sheetNames) {
@@ -64,14 +68,17 @@ function getAllFilesIncludingSubFolders(dir) {
     });
 }
 
-function getFilteredFeatureFiles(tag) {
-    let featuresPath = `${process.cwd()}/src/um-e2e-tests/features/cwfm`;
+function getFilteredFeatureFiles(tag: string) {
+    let featuresPath = `${process.cwd()}/src/features/cwfm`;
     let allFiles = this.getAllFilesIncludingSubFolders(featuresPath);
     //convert all provided tag names to an array
     let allScenarioNumbers = tag.split(",");
     let filteredFiles = [];
     allScenarioNumbers.forEach(function (scenarioNum) {
-        scenarioNum = scenarioNum.match('[a-zA-Z]+[0-9]+_*[a-zA-Z]*[0-9]*')[0].trim();
+        const match = scenarioNum.match('[a-zA-Z]+[0-9]+_*[a-zA-Z]*[0-9]*');
+        if (match) {
+            scenarioNum = match[0].trim();
+        }
         allFiles.forEach(function (fileName) {
             if (fileName.includes(scenarioNum + " -")) {
                 filteredFiles.push(fileName);

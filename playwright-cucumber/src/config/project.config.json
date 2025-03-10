@@ -1,0 +1,7 @@
+{
+    "baseUrl": "https://www.saucedemo.com",
+    "timeout": 30000,
+    "SCENARIOS_EXECUTION_SEQUENCE": "SEQUENTIAL",
+    "RUN_TIME_DATA_PATH": "src/data/run-time-data",
+    "TEST_DATA_TXN_PATH": "src/data/test-data-txn"
+}
