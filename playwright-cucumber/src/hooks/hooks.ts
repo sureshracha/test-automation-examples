@@ -6,13 +6,13 @@ import { getEnv } from '../helpers/env/env';
 import { createLogger } from "winston";
 import { playwrightWrapper, invokeBrowser, closeplaywrightWrapper } from '@qe-solutions/playwright-test-wrappers';
 import { customLogger, fileUtils, tcontext, customAssert, runtimeDataUtils } from '@qe-solutions/test-automation-library';
-import * as projectConfig from '../config/project.config.json';
-import * as userCredentials from '../testdata/ref/loginDetails.json';
-import TestDataUtils from '../utils/testData.utils';
 
+import TestDataUtils from '../utils/testData.utils';
+const projectConfig = require('../config/project.config.json');
 const { atMostOnePicklePerTag } = parallelCanAssignHelpers;
 const myTagRule = atMostOnePicklePerTag([projectConfig.SCENARIOS_EXECUTION_SEQUENCE]);
 
+const userCredentials = require('../testdata/ref/loginDetails.json');
 // Only one pickle with @tag1 can run at a time
 //   AND only one pickle with @tag2 can run at a time
 //setParallelCanAssign(myTagRule);

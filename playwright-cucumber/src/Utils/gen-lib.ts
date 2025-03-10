@@ -1,8 +1,10 @@
-const xlsx = require("xlsx");
+import * as xlsx from "xlsx";
 const fs = require('fs');
 
-interface Date {
-    mmddyyyy(): string;
+declare global {
+    interface Date {
+        mmddyyyy(): string;
+    }
 }
 
 Date.prototype.mmddyyyy = function (): string {
@@ -12,7 +14,7 @@ Date.prototype.mmddyyyy = function (): string {
     return (mm[1] ? mm : "0" + mm[0]) + '/' + (dd[1] ? dd : "0" + dd[0]) + '/' + yyyy;
 }
 
-function readExcelSheetsAndWriteToJsons(excelFilePath, jsonFilePath) {
+export function readExcelSheetsAndWriteToJsons(excelFilePath: string, jsonFilePath: string) {
     let tempFilePath = `${jsonFilePath}/temp.xlsx`;
     let wb = xlsx.readFile(excelFilePath, {
         cellDates: true,
@@ -25,24 +27,24 @@ function readExcelSheetsAndWriteToJsons(excelFilePath, jsonFilePath) {
     wb = xlsx.readFile(tempFilePath, {
         type: 'buffer',
         cellDates: true,
-        blankrows: false, header: false, defval: null, raw: false, dateNF: 'dd-mm-yyyy'
+        raw: false, dateNF: 'dd-mm-yyyy'
 
     })
 
     writeToJsonFile(wb, jsonFilePath);
     console.log("Testdata generated successfully at " + jsonFilePath);
-    fs.unlink(tempFilePath, (err) => {
+    fs.unlink(tempFilePath, (err: any) => {
         if (err) throw err;
     })
 }
 
-function writeToJsonFile(workBook: any, pathToWrite: any) {
+export function writeToJsonFile(workBook: any, pathToWrite: any) {
 
     const sheetNames = workBook.SheetNames;
     for (const sheetName of sheetNames) {
         const ws = workBook.Sheets[sheetName];
-        let data = xlsx.utils.sheet_to_json(ws, { blankrows: false, header: false, defval: null, raw: false, dateNF: 'dd-mm-yyyy' });
-        data.forEach((d) => {
+        let data = xlsx.utils.sheet_to_json(ws, { blankrows: false, header: -1, defval: null, raw: false, dateNF: 'dd-mm-yyyy' });
+        data.forEach((d: any) => {
             Object.keys(d).forEach(key => {
                 if (d[key]) {
                     if (d[key].toString().includes(`'`)) {
@@ -57,9 +59,9 @@ function writeToJsonFile(workBook: any, pathToWrite: any) {
     }
 }
 
-function getAllFilesIncludingSubFolders(dir) {
+export function getAllFilesIncludingSubFolders(dir: string) {
     let fs = require("fs");
-    return fs.readdirSync(dir).flatMap((item) => {
+    return fs.readdirSync(dir).flatMap((item: any) => {
         const path = `${dir}/${item}`;
         if (fs.statSync(path).isDirectory()) {
             return getAllFilesIncludingSubFolders(path);
@@ -68,18 +70,18 @@ function getAllFilesIncludingSubFolders(dir) {
     });
 }
 
-function getFilteredFeatureFiles(tag: string) {
+export function getFilteredFeatureFiles(tag: string) {
     let featuresPath = `${process.cwd()}/src/features/cwfm`;
-    let allFiles = this.getAllFilesIncludingSubFolders(featuresPath);
+    let allFiles = getAllFilesIncludingSubFolders(featuresPath);
     //convert all provided tag names to an array
     let allScenarioNumbers = tag.split(",");
-    let filteredFiles = [];
+    let filteredFiles: string[] = [];
     allScenarioNumbers.forEach(function (scenarioNum) {
         const match = scenarioNum.match('[a-zA-Z]+[0-9]+_*[a-zA-Z]*[0-9]*');
         if (match) {
             scenarioNum = match[0].trim();
         }
-        allFiles.forEach(function (fileName) {
+        allFiles.forEach(function (fileName: any) {
             if (fileName.includes(scenarioNum + " -")) {
                 filteredFiles.push(fileName);
             }
@@ -94,10 +96,4 @@ function getFilteredFeatureFiles(tag: string) {
     });
     console.log(`Below Feature files matched for the input : ${tag}: \n ${filteredFiles}`);
     return filteredFiles;
-}
-
-module.exports = {
-    readExcelSheetsAndWriteToJsons,
-    getAllFilesIncludingSubFolders,
-    getFilteredFeatureFiles
 }
