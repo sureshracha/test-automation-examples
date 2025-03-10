@@ -1,4 +1,2 @@
-/dist
+# Dependencies
 /node_modules
-.env
-.DS_Store
