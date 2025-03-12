@@ -61,7 +61,7 @@ Before(async function ({ pickle }) {
     let sourceDirectory = `${process.cwd()}${projectConfig.TEST_DATA_TXN_PATH}`;
 
     await runtimeDataUtils.copyScenariosDataToRunTimeDataFile(sourceDirectory, sourceFile, scn);
-    await testDataUtils.renameKey(tcontext.testContext.runtimeStorageFile, 'MyTasks', 'testData');
+    // await testDataUtils.renameKey(tcontext.testContext.runtimeStorageFile, 'MyTasks', 'testData');
     let loggerFileName = await runtimeDataUtils.getRunTimeDataFileName(pickle) + "-" + pickle.id;
     tcontext.testContext.logger = createLogger(await customLogger.options({ fileName: loggerFileName, logfileFolder: `${process.cwd()}/test-results-e2e/logs` }));
     tcontext.testContext.runtimeLoggerFile = `${process.cwd()}/test-results/logs/${loggerFileName}.log`;
@@ -104,7 +104,6 @@ async function afterSceanrio(pickle: any, result: any, worldObj: any) {
         await attachImage(result, pickle, worldObj);
     }
 
-
     if (tcontext.testContext.assertsJson) {
         if (tcontext.testContext.assertsJson.soft.length > 0) {
             await attachlog(JSON.stringify(tcontext.testContext.assertsJson, null, 2), worldObj);
@@ -115,7 +114,6 @@ async function afterSceanrio(pickle: any, result: any, worldObj: any) {
         }
     }
 
-    // }
     async function attachlog(data: any, worldObj: any) {
         worldObj.attach(data, "text/plain");
     }

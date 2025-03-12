@@ -1,3 +1,5 @@
 import CryptoJS from 'crypto-js';
-let str = CryptoJS.enc.Utf8.parse(process.argv.splice(2)[0]);
-console.log(CryptoJS.enc.Base64.stringify(str)); 
+
+let encrypted = process.argv.splice(2)[0];
+let decrypted = CryptoJS.enc.Base64.parse(encrypted).toString(CryptoJS.enc.Utf8);
+console.log(decrypted); 

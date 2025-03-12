@@ -1,10 +1,10 @@
 
-const projectConfig = require('../src/um-e2e-tests/config/project.config.json');
-const fs = require('fs');
-const xlsx = require("xlsx");
-let parms = process.argv.splice(/);
+const projectConfig = require('../src/config/project.config.json');
+import fs from 'fs';
+import xlsx from "xlsx";
+let parms = process.argv.splice(2);
 let env = parms.length > 2 ? parms[2].trim().toLowerCase() : "test";
-const finalResultsFile = `${process.cwd()}/test-results-e2e/finalResults/runtimeFinaleResults_${env}.json`;
+const finalResultsFile = `${process.cwd()}/test-results/finalResults/runtimeFinaleResults_${env}.json`;
 
 function getFileNamesFromDir(dirPath: string) {
 	let array: string[] = [];
@@ -24,12 +24,12 @@ function createFolder(folder: string) {
 	}
 }
 
-function copyRunTimeDataFileMyTaskScenariosData(runtimeDataFile) {
-	let runTimeData = JSON.parse(fs.readFileSync(runtimeDataFile));
-	let finalResultsFileData = JSON.parse(fs.readFileSync(finalResultsFile));
+function copyRunTimeDataFileMyTaskScenariosData(runtimeDataFile: string) {
+	let runTimeData = JSON.parse(fs.readFileSync(runtimeDataFile, 'utf-8'));
+	let finalResultsFileData = JSON.parse(fs.readFileSync(finalResultsFile, 'utf-8'));
 
 	if (runTimeData.testData) {
-		runTimeData.testData.forEach((scenarioData) => {
+		runTimeData.testData.forEach((scenarioData: any) => {
 			finalResultsFileData.testData.push(scenarioData);
 		})
 		if (runTimeData.results) {
@@ -45,7 +45,7 @@ function createUpdateData() {
 	const files = getFileNamesFromDir(process.cwd() + projectConfig.RUN_TIME_DATA_PATH);
 
 	if (files.length !== 0) {
-		fs.writeFileSync(finalResultsFile, '{ "testData": [],"results":[]}', { flag: 'w' }, 'utf-8');
+		fs.writeFileSync(finalResultsFile, '{ "testData": [],"results":[]}', { flag: 'w' });
 		files.forEach((file) => {
 			const sFile = `${process.cwd()}${projectConfig.RUN_TIME_DATA_PATH}/${file}`;
 			copyRunTimeDataFileMyTaskScenariosData(sFile);
@@ -54,12 +54,10 @@ function createUpdateData() {
 
 
 		// if (suite.toLowerCase() === 'auths' || suite.toLowerCase() === 'facility-validation') {
-		let filename = `${process.cwd()}/test-results-e2e/finalResults/runtimeResults.xlsx`;
-		let wb1 = xlsx.readFile(`${process.cwd()}/src/um-e2e-tests/testdata/sample.xlsx`);
-		xlsx.writeFile(wb1, filename);
-		//  suite.toLowerCase() === 'auths' ? authsAndFacilityDataFilePath + projectConfig.AUTHS_DATA_FILE : authsAndFacilityDataFilePath + projectConfig.FACILITY_VALIDATION_DATA_FILE;
-		const sfile = require(finalResultsFile)
-		let wb = xlsx.readFile(filename)
+		let filename = `${process.cwd()}/test-results/finalResults/runtimeResults.xlsx`;
+		let wb1 = xlsx.readFile(`${process.cwd()}/src/testdata/sample.xlsx`);
+		xlsx.writeFile(wb1, filename); const sfile = require(finalResultsFile)
+		let wb = xlsx.readFile(filename);
 		const ws = xlsx.utils.json_to_sheet(sfile.results);
 		xlsx.utils.book_append_sheet(wb, ws, "results" + new Date().toDateString() + new Date().getMilliseconds());
 		xlsx.writeFile(wb, filename);
