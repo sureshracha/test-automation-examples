@@ -71,7 +71,7 @@ export function getAllFilesIncludingSubFolders(dir: string) {
 }
 
 export function getFilteredFeatureFiles(tag: string) {
-    let featuresPath = `${process.cwd()}/src/features/cwfm`;
+    let featuresPath = `${process.cwd()}/src/features/`;
     let allFiles = getAllFilesIncludingSubFolders(featuresPath);
     //convert all provided tag names to an array
     let allScenarioNumbers = tag.split(",");

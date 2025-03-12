@@ -25,7 +25,7 @@ Before(async function ({ pickle }) {
     let appPwd = '';
     let txnDatafolder = `${process.cwd()}${projectConfig.RUN_TIME_DATA_PATH}`;
 
-    playwrightWrapper.browser = await invokeBrowser(process.env.BROWSER, { headless: true });
+    playwrightWrapper.browser = await invokeBrowser(process.env.BROWSER, { headless: false });
 
     console.log('worker id : ' + process.env.CUCUMBER_WORKER_ID + ' ### pickle Name : ' + pickle.name);
 

@@ -13,7 +13,7 @@
       "json:playwright-cucumber/test-reports/cucumber-report.json"
     ],
     "require": [
-      "playwright-cucumber/src/steps/**/*.ts",
+      "playwright-cucumber/src/steps/*.ts",
       "playwright-cucumber/src/hooks/hook.ts"
     ],
     "parallel": 1
@@ -23,19 +23,21 @@
       "snippetInterface": "async-await"
     },
     "paths": [
-      "playright-cucumber/src/features/**/*"
+      "C:\\Users\\Lenovo\\OneDrive\\Documents\\GitHub\\test-automation-examples\\playwright-cucumber/src/features//D01 - Login application.feature"
     ],
     "dryRun": false,
     "failFast": false,
     "format": [
-      "html:playwright-cucumber/test-reports/cucumber-report.html",
-      "json:playwright-cucumber/test-reports/cucumber-report.json"
+      "html:test-reports/cucumber-report.html",
+      "json:test-reports/cucumber-report.json"
+    ],
+    "requireModule": [
+      "ts-node/register"
     ],
     "require": [
-      "playwright-cucumber/src/steps/**/*.ts",
-      "playwright-cucumber/src/hooks/hook.ts"
+      "src/steps/*.steps.ts",
+      "src/hooks/hook.ts"
     ],
-    "parallel": 1,
-    "tags": "@smoke"
+    "parallel": 1
   }
 }

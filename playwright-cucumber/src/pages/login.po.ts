@@ -18,7 +18,7 @@ export class LoginPage {
         await this.btn_login.click();
     }
 
-    async launch() {
-        await gotoUrl(process.env.APIURL);
+    async launch(url: string) {
+        await gotoUrl(url);
     }
 }

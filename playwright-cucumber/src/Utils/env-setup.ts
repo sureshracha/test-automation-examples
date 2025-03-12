@@ -1,11 +1,11 @@
 import * as  fs from 'fs';
-const util = require('./gen-lib');
+import * as util from './gen-lib';
 
 let args = process.argv.splice(2);
-const envName = args.length > 2 ? args[2].trim().toLowerCase() : "test";
-const tag = args.length > 3 ? args[3].trim() : "smoke";
-let browser = args.length > 4 ? args[4].trim().toLowerCase() : "chrome";
-let parallel = args.length > 5 ? args[5].trim().toLowerCase() : "1";
+const envName = args.length > 0 ? args[0].trim().toLowerCase() : "test";
+const tag = args.length > 1 ? args[1].trim() : "smoke";
+let browser = args.length > 2 ? args[2].trim().toLowerCase() : "chrome";
+let parallel = args.length > 3 ? args[3].trim().toLowerCase() : "1";
 
 const packageJsonOputfile = `${process.cwd()}/package.json`;
 const cucumberJsonOutputfile = `${process.cwd()}/cucumber.json`;
