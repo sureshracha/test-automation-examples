@@ -1,0 +1,41 @@
+{
+  "rerun": {
+    "formatOptions": {
+      "snippetInterface": "async-await"
+    },
+    "paths": [
+      "playwright-cucumber/src/features/**/*.feature"
+    ],
+    "dryRun": false,
+    "failFast": false,
+    "format": [
+      "html:playwright-cucumber/test-reports/cucumber-report.html",
+      "json:playwright-cucumber/test-reports/cucumber-report.json"
+    ],
+    "require": [
+      "playwright-cucumber/src/steps/**/*.ts",
+      "playwright-cucumber/src/hooks/hook.ts"
+    ],
+    "parallel": 1
+  },
+  "default": {
+    "formatOptions": {
+      "snippetInterface": "async-await"
+    },
+    "paths": [
+      "playright-cucumber/src/features/**/*"
+    ],
+    "dryRun": false,
+    "failFast": false,
+    "format": [
+      "html:playwright-cucumber/test-reports/cucumber-report.html",
+      "json:playwright-cucumber/test-reports/cucumber-report.json"
+    ],
+    "require": [
+      "playwright-cucumber/src/steps/**/*.ts",
+      "playwright-cucumber/src/hooks/hook.ts"
+    ],
+    "parallel": 1,
+    "tags": "@smoke"
+  }
+}

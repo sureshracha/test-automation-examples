@@ -1,7 +1,7 @@
 import * as  fs from 'fs-extra';
 try {
-	fs.ensureDir("test-results-e2e");
-	fs.emptyDir("test-results-e2e");
+	fs.ensureDir("test-results");
+	fs.emptyDir("test-results");
 
 } catch (error) {
 	console.log("Folder not created! " + error);

@@ -1,5 +1,5 @@
 import * as  fs from 'fs';
-const util = require('./general.util');
+const util = require('./gen-lib');
 
 let args = process.argv.splice(2);
 const envName = args.length > 2 ? args[2].trim().toLowerCase() : "test";
@@ -9,7 +9,7 @@ let parallel = args.length > 5 ? args[5].trim().toLowerCase() : "1";
 
 const packageJsonOputfile = `${process.cwd()}/package.json`;
 const cucumberJsonOutputfile = `${process.cwd()}/cucumber.json`;
-const projectConfigFile = `${process.cwd()}/src/um-e2e-tests/config/project.config.json`;
+const projectConfigFile = `${process.cwd()}/src/config/project.config.json`;
 const cucumberJsonData = require(cucumberJsonOutputfile);
 const packageJsonData = require(packageJsonOputfile);
 const prjectConfigData = require(projectConfigFile);
@@ -30,7 +30,7 @@ if (tag.includes('.feature') || tag.includes(' - ') || tag.match('[a-zA-Z]+[0-9]
     cucumberJsonData.default.paths = filteredFiles;
     prjectConfigData.TEST_TXN_DATA_FILE_NAME = "testData.xlsx";
 } else {
-    cucumberJsonData.default.paths = [`src/features/**/*`];
+    cucumberJsonData.default.paths = [`playright-cucumber/src/features/**/*`];
 
     prjectConfigData.SCENARIOS_EXECUTION_SEQUENCE.push(`@${tag}`);
     cucumberJsonData.default.tags = `@${tag}`;

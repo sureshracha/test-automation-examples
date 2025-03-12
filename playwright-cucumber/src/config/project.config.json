@@ -1,8 +1,10 @@
 {
-    "baseUrl": "https://www.saucedemo.com",
-    "timeout": 30000,
-    "SCENARIOS_EXECUTION_SEQUENCE": "SEQUENTIAL",
-    "RUN_TIME_DATA_PATH": "playwright-cucumber/src/runtimedata",
-    "TEST_DATA_TXN_PATH": "playwright-cucumber/src/testdata/txn",
-    "TEST_TXN_DATA_FILE_NAME": "testData.xlsx"
+  "baseUrl": "https://www.saucedemo.com",
+  "timeout": 30000,
+  "SCENARIOS_EXECUTION_SEQUENCE": [
+    "@smoke"
+  ],
+  "RUN_TIME_DATA_PATH": "playwright-cucumber/src/runtimedata",
+  "TEST_DATA_TXN_PATH": "playwright-cucumber/src/testdata/txn",
+  "TEST_TXN_DATA_FILE_NAME": "testData.xlsx"
 }

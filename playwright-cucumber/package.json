@@ -4,8 +4,12 @@
   "type": "commonjs",
   "scripts": {
     "build": "echo test started",
-    "test": "echo test running",
-    "posttest": "echo test ended"
+    "test": "cross-env ENV=test BROWSER=chrome TAG=@smoke cucumber-js",
+    "posttest": "echo test ended",
+    "cleanreport": "node automationUtils/init-report-e2e.js",
+    "report": "node automationUtils/e2e-report.js test smoke chrome",
+    "exportresults": "npx ts-node src/utils/consolidate-testresults.js smoke test ",
+    "test:failed": "cross-env ENV=test BROWSER=chrome TAG=@smoke cucumber-js -p rerun @rerun.txt"
   },
   "repository": {
     "url": "https://github.com/sureshracha/test-automation-examples"
