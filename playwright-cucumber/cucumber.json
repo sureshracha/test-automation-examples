@@ -1,0 +1,48 @@
+{
+  "rerun": {
+    "formatOptions": {
+      "snippetInterface": "async-await"
+    },
+    "paths": [
+      "src/features/**/*"
+    ],
+    "dryRun": false,
+    "format": [
+      "html:test-reports/cucumber-report.html",
+      "json:test-reports/cucumber-report.json",
+      "rerun:@rerun.txt"
+    ],
+    "requireModule": [
+      "ts-node/register"
+    ],
+    "require": [
+      "src/steps/*.ts",
+      "src/hooks/hooks.ts"
+    ],
+    "parallel": 1
+  },
+  "default": {
+    
+    "formatOptions": {
+      "snippetInterface": "async-await"
+    },
+    "paths": [
+      "C:\\Users\\Lenovo\\OneDrive\\Documents\\GitHub\\test-automation-examples\\playwright-cucumber/src/features//D01 - Login application.feature"
+    ],
+    "dryRun": false,
+    "failFast": false,
+    "format": [
+      "html:test-reports/cucumber-report.html",
+      "json:test-reports/cucumber-report.json",
+        "rerun:@rerun.txt"
+    ],
+    "requireModule": [
+      "ts-node/register"
+    ],
+    "require": [
+      "src/steps/*.steps.ts",
+      "src/hooks/hooks.ts"
+    ],
+    "parallel": 1
+  }
+}

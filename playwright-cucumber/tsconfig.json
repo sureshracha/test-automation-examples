@@ -1,0 +1,33 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./",
+        "sourceMap": true, 
+        "declaration": false,
+        "types": ["node"],
+        "experimentalDecorators": true,
+        "typeRoots": [
+            "node_modules/@types",
+            "src/helpers/types"
+        ], 
+         
+        "resolveJsonModule": true,
+    },
+    
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "module": "es6",
+    "skipLibCheck": true,
+    "target": "es6",
+    "experimentalDecorators": true,
+    "preserveSymlinks": true,
+    "downlevelIteration": true,
+    "typeRoots": [
+        "node_modules/@types"
+    ],
+    "lib": [
+        "esnext",
+        "dom",
+        "esnext.asynciterable"
+    ]
+}
