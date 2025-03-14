@@ -1,5 +1,7 @@
 {
+    "compileOnSave": false,
     "compilerOptions": {
+        "baseUrl": "./",
         "strict": true,
         "sourceMap": true, 
         "declaration": false,
@@ -8,11 +10,8 @@
         "typeRoots": [
             "node_modules/@types",
             "src/helpers/types"
-        ],
-        "baseUrl": ".",
-        "paths": {
-            "src/*": ["src/*"]
-        },
+        ], 
+         
         "resolveJsonModule": true,
     },
     
@@ -21,6 +20,7 @@
     "module": "es6",
     "skipLibCheck": true,
     "target": "es6",
+    "experimentalDecorators": true,
     "preserveSymlinks": true,
     "downlevelIteration": true,
     "typeRoots": [
