@@ -4,7 +4,7 @@ import { Before, After, Status, parallelCanAssignHelpers } from "@cucumber/cucum
 import { request } from "@playwright/test";
 import { getEnv } from '../helpers/env/env';
 import { createLogger } from "winston";
-import { playwrightWrapper, invokeBrowser, closeplaywrightWrapper } from '@qe-solutions/playwright-test-wrappers';
+import { playwrightWrapper, invokeBrowser, closeplaywright } from '@qe-solutions/playwright-test-wrappers';
 import { customLogger, fileUtils, tcontext, runtimeDataUtils } from '@qe-solutions/test-automation-library';
 
 import TestDataUtils from '../utils/testData.utils';
@@ -25,11 +25,11 @@ Before(async function ({ pickle }) {
     let appPwd = '';
     let txnDatafolder = `${process.cwd()}${projectConfig.RUN_TIME_DATA_PATH}`;
 
-    playwrightWrapper.browser = await invokeBrowser(process.env.BROWSER, { headless: false });
+    playwrightWrapper.browser = await invokeBrowser('chrome', { headless: false });
 
     console.log('worker id : ' + process.env.CUCUMBER_WORKER_ID + ' ### pickle Name : ' + pickle.name);
 
-
+    console.log(process.env.BROWSER)
     playwrightWrapper.context = await playwrightWrapper.browser.newContext(
         {
             // recordVideo: {
@@ -55,7 +55,7 @@ Before(async function ({ pickle }) {
     playwrightWrapper.page = await playwrightWrapper.context.newPage();
     tcontext.testContext.assertsJson = JSON.parse("{}");
     tcontext.testContext.assertsJson.soft = [];
-    tcontext.testContext.runtimeStorageFile = await runtimeDataUtils.createRunTimeDataJsonFile(txnDatafolder, process.env.ENV, pickle);
+    tcontext.testContext.runtimeStorageFile = await runtimeDataUtils.createRunTimeDataJsonFile(txnDatafolder, "test", pickle);
     let scn = await runtimeDataUtils.getRunTimeScnearioNo(pickle);
     let sourceFile = await testDataUtils.getSourceTestDataFile();
     let sourceDirectory = `${process.cwd()}${projectConfig.TEST_DATA_TXN_PATH}`;
@@ -79,7 +79,7 @@ Before(async function ({ pickle }) {
 After(async function ({ pickle, result }) {
 
     await afterSceanrio(pickle, result, this);
-    await closeplaywrightWrapper();
+    await closeplaywright();
 
     await playwrightWrapper.context.close();
     if (playwrightWrapper.apiContext) await playwrightWrapper.apiContext.dispose();

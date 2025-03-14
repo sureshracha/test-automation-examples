@@ -4,21 +4,25 @@
       "snippetInterface": "async-await"
     },
     "paths": [
-      "playwright-cucumber/src/features/**/*.feature"
+      "src/features/**/*"
     ],
     "dryRun": false,
-    "failFast": false,
     "format": [
-      "html:playwright-cucumber/test-reports/cucumber-report.html",
-      "json:playwright-cucumber/test-reports/cucumber-report.json"
+      "html:test-reports/cucumber-report.html",
+      "json:test-reports/cucumber-report.json",
+      "rerun:@rerun.txt"
+    ],
+    "requireModule": [
+      "ts-node/register"
     ],
     "require": [
-      "playwright-cucumber/src/steps/*.ts",
-      "playwright-cucumber/src/hooks/hook.ts"
+      "src/steps/*.ts",
+      "src/hooks/hooks.ts"
     ],
     "parallel": 1
   },
   "default": {
+    
     "formatOptions": {
       "snippetInterface": "async-await"
     },
@@ -29,14 +33,15 @@
     "failFast": false,
     "format": [
       "html:test-reports/cucumber-report.html",
-      "json:test-reports/cucumber-report.json"
+      "json:test-reports/cucumber-report.json",
+        "rerun:@rerun.txt"
     ],
     "requireModule": [
       "ts-node/register"
     ],
     "require": [
       "src/steps/*.steps.ts",
-      "src/hooks/hook.ts"
+      "src/hooks/hooks.ts"
     ],
     "parallel": 1
   }

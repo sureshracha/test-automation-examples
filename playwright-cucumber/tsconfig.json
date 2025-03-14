@@ -1,15 +1,34 @@
 {
     "compilerOptions": {
         "strict": true,
-        "noImplicitAny": true,
-        "esModuleInterop": true,
-        "strictNullChecks": true,
-        "target": "ES2021",
-        "moduleResolution": "Node",
-        "module": "CommonJS",
-        "declaration": true,
-        "isolatedModules": true,
-        "noEmit": true,
-        "outDir": "playwright-cucumber/dist"
-    }
+        "sourceMap": true, 
+        "declaration": false,
+        "types": ["node"],
+        "experimentalDecorators": true,
+        "typeRoots": [
+            "node_modules/@types",
+            "src/helpers/types"
+        ],
+        "baseUrl": ".",
+        "paths": {
+            "src/*": ["src/*"]
+        },
+        "resolveJsonModule": true,
+    },
+    
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "module": "es6",
+    "skipLibCheck": true,
+    "target": "es6",
+    "preserveSymlinks": true,
+    "downlevelIteration": true,
+    "typeRoots": [
+        "node_modules/@types"
+    ],
+    "lib": [
+        "esnext",
+        "dom",
+        "esnext.asynciterable"
+    ]
 }
