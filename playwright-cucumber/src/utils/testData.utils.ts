@@ -1,7 +1,7 @@
 import { fileUtils, tcontext } from "@qe-solutions/test-automation-library";
 export default class TestDataUtils {
     getSourceTestDataFile() {
-        return 'sourceTestData.json';
+        return '';
     }
 
     async renameKey(runtimeStorageFile: string, oldKey: string, newKey: string) {
