@@ -11,7 +11,8 @@ export class HomePage {
     //methods
     async checkHomePageExisted() {
         await customLogger.info('Checking Home Page Existed');
-        await customAssert.softAssert(await this.icnMenu.isExist(), true, 'Home Page is not Existed');
+        let flag = await this.icnMenu.isExist();
+        await customAssert.softAssert(flag, true, 'Home Page is not Existed');
 
     }
 }

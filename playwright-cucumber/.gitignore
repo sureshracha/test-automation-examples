@@ -1,2 +1,5 @@
 # Dependencies
 /node_modules
+/test-results/**/*.*
+/test-reports/*.*
+/src/runtimedata

@@ -63,11 +63,13 @@ Before(async function ({ pickle }) {
     await runtimeDataUtils.copyScenariosDataToRunTimeDataFile(sourceDirectory, sourceFile, scn);
     // await testDataUtils.renameKey(tcontext.testContext.runtimeStorageFile, 'MyTasks', 'testData');
     let loggerFileName = await runtimeDataUtils.getRunTimeDataFileName(pickle) + "-" + pickle.id;
-    tcontext.testContext.logger = createLogger(await customLogger.options({ fileName: loggerFileName, logfileFolder: `${process.cwd()}/test-results-e2e/logs` }));
+    tcontext.testContext.logger = createLogger(await customLogger.options({ fileName: loggerFileName, logfileFolder: `${process.cwd()}/test-results/logs` }));
     tcontext.testContext.runtimeLoggerFile = `${process.cwd()}/test-results/logs/${loggerFileName}.log`;
     playwrightWrapper.apiContext = await request.newContext({
         baseURL: process.env.APIURL,
     });
+
+    playwrightWrapper.logger = tcontext.testContext.logger; // attaching logger to playwrightWrapper
 
     console.log(' Worker id : ' + process.env.CUCUMBER_WORKER_ID);
     console.log(' User id picked : ' + appUserId);

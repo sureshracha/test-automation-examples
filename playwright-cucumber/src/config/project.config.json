@@ -2,7 +2,7 @@
   "baseUrl": "https://www.saucedemo.com",
   "timeout": 30000,
   "SCENARIOS_EXECUTION_SEQUENCE": [],
-  "RUN_TIME_DATA_PATH": "playwright-cucumber/src/runtimedata",
-  "TEST_DATA_TXN_PATH": "playwright-cucumber/src/testdata/txn",
+  "RUN_TIME_DATA_PATH": "/src/runtimedata",
+  "TEST_DATA_TXN_PATH": "/src/testdata/txn",
   "TEST_TXN_DATA_FILE_NAME": "testData.xlsx"
 }
